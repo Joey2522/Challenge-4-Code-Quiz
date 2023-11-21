@@ -19,11 +19,12 @@ body {
 .header {
     display: flex;
     justify-content: space-between;
+    color: whitesmoke;
     margin: 20px 50px;
     padding: 20px 25px;
 }
 
-.viewScore {
+.view-score {
     cursor: pointer;
     background-color: var(--steelBlue);
     border-radius: 5px;
@@ -45,6 +46,7 @@ body {
 }
 
 .title {
+    color: var(--steelBlue);
     margin: 15px;
     font-size: 30px;
 }
@@ -52,6 +54,7 @@ body {
 .text {
     margin: 10px;
     font-size: 20px;
+    color: whitesmoke;
     line-height: 1.5;
 }
 
@@ -60,7 +63,7 @@ body {
     font-family: 'Courier New', Courier, monospace;
     border-radius: 7px;
     color: #fff;
-    background-color: rgb(0, 80, 239);
+    background-color: var(--pompAndPower);
     border: none;
     padding: 5px;
     margin: 10px;
@@ -68,14 +71,14 @@ body {
 }
 
 .btn:hover {
-    background-color: rgb(212, 16, 252);
+    background-color: var(--coolGray);
 }
 
-.btnStart {
+.btn-start {
     width: 200px;
 }
 
-.btnAnswer {
+.btn-answer {
     width: 350px;
     text-align: left;
 }
@@ -93,7 +96,7 @@ body {
     padding: 20px;
 }
 
-.checkResult {
+.check-result {
     font-size: 28px;
     font-style: italic;
     color: rgba(128, 128, 128, 1);
