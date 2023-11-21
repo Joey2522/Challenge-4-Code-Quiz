@@ -82,6 +82,7 @@ let index = 0;
 let record = [];
 
 function start(){
+    //restart
     let removeAll = container;
     while(removeAll.hasChildNodes()) {
         removeAll.removeChild(removeAll.firstChild);
@@ -134,6 +135,76 @@ function start(){
             removeAll.removeChild(removeAll.firstChild);
         };
 
-        if(index < quesionsArr.length) {}
+        if(index < quesionsArr.length) {
+
+            //create quiz container
+            let quizHere = document.createElement("div");
+            quizHere.classList.add("quiz");
+            container.appendChild(quizHere);
+
+            //create question
+            let quizTitle = document.createElement("h1");
+            quizTitle.classList.add("title");
+            quizTitle.textContent = quesionsArr[index].question;
+            quizHere.appendChild(quizTitle);
+
+            //create options
+            let optionsObj = quesionsArr[index].options;
+            for (var x in optionsObj) {
+                var quizOption = document.createElement("button");
+                quizOption.classList.add("btn", "btn-answer");
+                if (x === quesionsArr[index].answer) {
+                    quizOption.setAttribute("check", "correct");
+                }
+                quizOption.textContent = optionsObj[x];
+                quizHere.appendChild(quizOption);
+            }
+            index++;
+
+            divider.syle.visibility = "visible";
+
+            //click option
+            document.querySelector(".quiz").addEventListener("click", checkResult);
+
+        }else{
+
+            //create done screen
+            let done = document.createElement('h2');
+            done.classList.add('title');
+            done.textContent = "All Done!";
+            container.appendChild(done);
+
+            let sum = document.createElement('p');
+            sum.classList.add('text');
+            sum.textContent = "All Done!";
+            container.appendChild(sum);
+
+            //form
+            let formEl = document.createElement("form");
+            formEl.classList.add("form");
+            container.appendChild(formEl);
+
+            let label = document.createElement("label");
+            label.classList.add("text");
+            label.setAttribute("for", "name");
+            label.textContent = "Enter Initials Here:";
+            formEl.appendChild(label);
+
+            let input = document.createElement("input");
+            input.classList.add("text");
+            input.setAttribute("type", "text");
+            input.setAttribute("name", "name");
+            input.setAttribute("id", "name");
+            input.setAttribute("placeholder", "name");
+            formEl.appendChilld(input);
+
+            let submit = document.createElement("button");
+            submit.classList.add("btn", "btn-submit");
+            submit.textContent = "Submit";
+            formEl.appendChild(submit);
+
+            //click submit button
+            document.querySelector(".btn-submit").addEventListener("click", recordHighScore);
+        }
     }
 
