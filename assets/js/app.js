@@ -1,75 +1,75 @@
-// const questionsArr = [
-//     {
-//         question: "Question 1"
-//         options: {
-//             a: "A. "
-//             b: "B. "
-//             c: "C. "
-//             d: "D. "
-//         }
-//         answer: "d"
-//     }
-//     {
-//         question: "Question 2"
-//         options: {
-//             a: "A. "
-//             b: "B. "
-//             c: "C. "
-//             d: "D. "
-//         }
-//         answer: "d"
-//     }
-//     {
-//         question: "Question 3"
-//         options: {
-//             a: "A. "
-//             b: "B. "
-//             c: "C. "
-//             d: "D. "
-//         }
-//         answer: "d"
-//     }
-//     {
-//         question: "Question 4"
-//         options: {
-//             a: "A. "
-//             b: "B. "
-//             c: "C. "
-//             d: "D. "
-//         }
-//         answer: "d"
-//     }
-//     {
-//         question: "Question 5"
-//         options: {
-//             a: "A. "
-//             b: "B. "
-//             c: "C. "
-//             d: "D. "
-//         }
-//         answer: "d"
-//     }
-//     {
-//         question: "Question 6"
-//         options: {
-//             a: "A. "
-//             b: "B. "
-//             c: "C. "
-//             d: "D. "
-//         }
-//         answer: "d"
-//     }
-//     {
-//         question: "Question 7"
-//         options: {
-//             a: "A. "
-//             b: "B. "
-//             c: "C. "
-//             d: "D. "
-//         }
-//         answer: "d"
-//     }
-// ];
+const questionsArr = [
+    {
+        question:"Question 1",
+        options: {
+            a: "A. ",
+            b: "B. ",
+            c: "C. ",
+            d: "D. ",
+        },
+        answer: "d"
+    },
+    {
+        question:"Question 2",
+        options: {
+            a: "A. ",
+            b: "B. ",
+            c: "C. ",
+            d: "D. ",
+        },
+        answer: "d"
+    },
+    {
+        question:"Question 3",
+        options: {
+            a: "A. ",
+            b: "B. ",
+            c: "C. ",
+            d: "D. ",
+        },
+        answer: "d"
+    },
+    {
+        question:"Question 4",
+        options: {
+            a: "A. ",
+            b: "B. ",
+            c: "C. ",
+            d: "D. ",
+        },
+        answer: "d"
+    },
+    {
+        question:"Question 5",
+        options: {
+            a: "A. ",
+            b: "B. ",
+            c: "C. ",
+            d: "D. ",
+        },
+        answer: "d"
+    },
+    {
+        question:"Question 6",
+        options: {
+            a: "A. ",
+            b: "B. ",
+            c: "C. ",
+            d: "D. ",
+        },
+        answer: "d"
+    },
+    {
+        question:"Question 7",
+        options: {
+            a: "A. ",
+            b: "B. ",
+            c: "C. ",
+            d: "D. ",
+        },
+        answer: "d"
+    },
+];
 
 let header = document.querySelector(".header");
 let opening = document.querySelector(".opening");
@@ -135,7 +135,7 @@ function start(){
             removeAll.removeChild(removeAll.firstChild);
         };
 
-        if(index < quesionsArr.length) {
+        if(index < questionsArr.length) {
 
             //create quiz container
             let quizHere = document.createElement("div");
@@ -145,15 +145,15 @@ function start(){
             //create question
             let quizTitle = document.createElement("h1");
             quizTitle.classList.add("title");
-            quizTitle.textContent = quesionsArr[index].question;
+            quizTitle.textContent = questionsArr[index].question;
             quizHere.appendChild(quizTitle);
 
             //create options
-            let optionsObj = quesionsArr[index].options;
+            let optionsObj = questionsArr[index].options;
             for (var x in optionsObj) {
                 var quizOption = document.createElement("button");
                 quizOption.classList.add("btn", "btn-answer");
-                if (x === quesionsArr[index].answer) {
+                if (x === questionsArr[index].answer) {
                     quizOption.setAttribute("check", "correct");
                 }
                 quizOption.textContent = optionsObj[x];
@@ -161,7 +161,7 @@ function start(){
             }
             index++;
 
-            divider.syle.visibility = "visible";
+            divider.style.visibility = "visible";
 
             //click option
             document.querySelector(".quiz").addEventListener("click", checkResult);
@@ -208,3 +208,111 @@ function start(){
         }
     }
 
+    function timer() {
+
+        var timeLeft = 60;
+    
+        var timeInterval = setInterval(function() {
+    
+            var timeEl = document.querySelector("#second");
+            timeEl.textContent = timeLeft + "s";
+            timeLeft--;
+    
+            if (result.textContent.match(/wrong/gi)) {
+                timeLeft -= 10; 
+            }
+    
+            if (timeLeft < 0 || scores.length === questionsArr.length) {
+    
+                clearInterval(timeInterval);
+    
+                alert("Quiz is over");
+                timeEl.textContent = 0 + "s";
+    
+                index += questionsArr.length;
+    
+                createQuiz();
+            }
+        }, 1000);
+        createQuiz();
+    }
+
+    function checkResult(event) {
+        let targetEl = event.target;
+
+        let check = document.createElement("p");
+        check.classList.add("check-result");
+        if (targetEl.hasAttribute("check")) {
+            check.textContent = "Correct!";
+            mark-=10;
+        }
+        result.appendChild(check);
+        scores.push(mark);
+
+        setTimeout(()=> {
+            check.remove();
+            createQuiz();
+        },1000);
+    }
+
+    function recordHighScore(event) {
+        event.preventDefault();
+        
+        //clear score array & index
+        scores.length = 0;
+        index = 0;
+
+        let playerName = document.querySelector("#name").value;
+
+        if(!playerName) {
+            alert("Please enter a name.");
+        }else{
+            let recordObj = {
+                name: playerName,
+                highScore: mark,
+            }
+        }
+
+        record.push(recordObj);
+        saveData();
+        //reset mark
+        mark = 0;
+        viewHighScore();
+    }
+
+    function viewHighScore() {
+        //clear page content
+        header.style.border = "none";
+        let removeHeader = header;
+        while(removeHeader.hasChildNodes()) {
+            removeHeader.removeChild(removeHeader.firstChild);
+        }
+        let removeContainer = container;
+        while(removeContainer.hasChildNodes()) {
+            removeContainer.removeChild(removeContainer.firstChild);
+        }
+        let highScoreTitle = document.createElement("h1");
+        highScoreTitle.classList.add("title");
+        highScoreTitle.textContent = "High Scores";
+        container.appendChild(highScoresTitle);
+
+        loadData();
+    
+        //create two buttons
+        let goBack = document.createElement("button");
+        goBack.classList.add("btn", "btn-clear");
+        goBack.textContent = "Clear High Scores";
+        container.appendChild(clear);
+
+        document.querySelector(".btn-goBack").addEventListener("click", start);
+        document.querySelector(".btn-clear").addEventListener("click", clearHistory);
+
+    }
+
+    function saveData() {
+        localStorage.setItem("high scores", JSON.stringify(record));
+    }
+
+    function loadData() {
+        
+    }
