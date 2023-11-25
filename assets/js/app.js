@@ -1,71 +1,71 @@
 const questionsArr = [
     {
-        question:"Question 1",
+        question: "1. Commonly used data types DO NOT include:",
         options: {
-            a: "A. ",
-            b: "B. ",
-            c: "C. ",
-            d: "D. ",
+            a: "A. strings", 
+            b: "B. booleans", 
+            c: "C. numbers", 
+            d: "D. alerts",
         },
         answer: "d"
     },
     {
-        question:"Question 2",
+        question: "2. String values must be enclosed within _____ when being assigned to variables.",
         options: {
-            a: "A. ",
-            b: "B. ",
-            c: "C. ",
-            d: "D. ",
+            a: "A. quotes", 
+            b: "B. curly brackets", 
+            c: "C. parenthesis", 
+            d: "D. commas",
+        },
+        answer: "a"
+    },
+    {
+        question: "3. A very useful tool used during development and debugging for printing content to the debugger is:",
+        options: {
+            a: "A. JavaScript", 
+            b: "B. terminal/bash", 
+            c: "C. for loops", 
+            d: "D. console.log",            
         },
         answer: "d"
     },
     {
-        question:"Question 3",
+        question:"4. Which of the following is not JavaScript data types?",
         options: {
-            a: "A. ",
-            b: "B. ",
-            c: "C. ",
-            d: "D. ",
+            a: "A. Null type",
+            b: "B. Undefined type",
+            c: "C. Number Type",
+            d: "D. All of the above",
         },
         answer: "d"
     },
     {
-        question:"Question 4",
+        question:"5. Which of the following can be used to call a JavaScript Code Snippet?",
         options: {
-            a: "A. ",
-            b: "B. ",
-            c: "C. ",
-            d: "D. ",
+            a: "A. Preprocessor",
+            b: "B. Function/Method",
+            c: "C. Triggering Event",
+            d: "D. RMI",
         },
-        answer: "d"
+        answer: "b"
     },
     {
-        question:"Question 5",
+        question:"6. Which of the following scoping type does JavaScript use?",
         options: {
-            a: "A. ",
-            b: "B. ",
-            c: "C. ",
-            d: "D. ",
+            a: "A. Sequential",
+            b: "B. Segmental",
+            c: "C. Lexical",
+            d: "D. Literal",
         },
-        answer: "d"
+        answer: "c"
     },
     {
-        question:"Question 6",
+        question: "Arrays in JavaScript can be used to store _____.",
         options: {
-            a: "A. ",
-            b: "B. ",
-            c: "C. ",
-            d: "D. ",
-        },
-        answer: "d"
-    },
-    {
-        question:"Question 7",
-        options: {
-            a: "A. ",
-            b: "B. ",
-            c: "C. ",
-            d: "D. ",
+            a: "A. numbers and strings", 
+            b: "B. other arrays", 
+            c: "C. booleans", 
+            d: "D. all of the above",
         },
         answer: "d"
     },
@@ -81,13 +81,12 @@ let mark = 0;
 let index = 0;
 let record = [];
 
-function start(){
+function start() {
     //restart
     let removeAll = container;
     while(removeAll.hasChildNodes()) {
         removeAll.removeChild(removeAll.firstChild);
-    }
-};
+    };
 
     // create view high scores
     let viewScore = document.createElement("p");
@@ -128,6 +127,7 @@ function start(){
 
     //click to view highscores
     document.querySelector(".view-score").addEventListener("click", viewHighScore);
+}
 
     function createQuiz() {
         let removeAll = container;
@@ -176,7 +176,7 @@ function start(){
 
             let sum = document.createElement('p');
             sum.classList.add('text');
-            sum.textContent = "All Done!";
+            sum.textContent = "Your final score is" +mark+"!";
             container.appendChild(sum);
 
             //form
@@ -191,12 +191,12 @@ function start(){
             formEl.appendChild(label);
 
             let input = document.createElement("input");
-            input.classList.add("text");
+            input.classList.add("initialText");
             input.setAttribute("type", "text");
             input.setAttribute("name", "name");
             input.setAttribute("id", "name");
             input.setAttribute("placeholder", "name");
-            formEl.appendChilld(input);
+            formEl.appendChild(input);
 
             let submit = document.createElement("button");
             submit.classList.add("btn", "btn-submit");
@@ -244,8 +244,12 @@ function start(){
         check.classList.add("check-result");
         if (targetEl.hasAttribute("check")) {
             check.textContent = "Correct!";
+            mark+=10;
+        } else {
+            check.textContent = "Wrong!";
             mark-=10;
         }
+
         result.appendChild(check);
         scores.push(mark);
 
@@ -267,7 +271,7 @@ function start(){
         if(!playerName) {
             alert("Please enter a name.");
         }else{
-            let recordObj = {
+            var recordObj = {
                 name: playerName,
                 highScore: mark,
             }
@@ -291,17 +295,22 @@ function start(){
         while(removeContainer.hasChildNodes()) {
             removeContainer.removeChild(removeContainer.firstChild);
         }
-        let highScoreTitle = document.createElement("h1");
-        highScoreTitle.classList.add("title");
-        highScoreTitle.textContent = "High Scores";
+        let highScoresTitle = document.createElement("h1");
+        highScoresTitle.classList.add("title");
+        highScoresTitle.textContent = "High Scores";
         container.appendChild(highScoresTitle);
 
         loadData();
     
         //create two buttons
         let goBack = document.createElement("button");
-        goBack.classList.add("btn", "btn-clear");
-        goBack.textContent = "Clear High Scores";
+        goBack.classList.add("btn", "btn-goBack");
+        goBack.textContent = "Go Back";
+        container.appendChild(goBack);
+
+        let clear = document.createElement("button");
+        clear.classList.add("btn", "btn-clear");
+        clear.textContent = "Clear High Scores";
         container.appendChild(clear);
 
         document.querySelector(".btn-goBack").addEventListener("click", start);
@@ -312,7 +321,31 @@ function start(){
     function saveData() {
         localStorage.setItem("high scores", JSON.stringify(record));
     }
-
+    
     function loadData() {
-        
+    
+        var load = localStorage.getItem("high scores");
+    
+        if (!load) {
+            return false;
+        }
+    
+        load = JSON.parse(load);
+    
+        for (var i = 0; i < load.length; i++) {
+            var highScorestext = document.createElement("li");
+            highScorestext.classList.add("list", "text");
+            highScorestext.setAttribute("id", "quiz-mark");
+            highScorestext.textContent = load[i].name + " : " + load[i].highScore;
+            container.appendChild(highScorestext);
+        }
     }
+    
+    function clearHistory() {
+        // clear localstorage
+        window.localStorage.clear();
+        // clear history list under container
+        document.querySelectorAll("#quiz-mark").forEach(removeHistory => removeHistory.remove());
+    }
+    
+    start();

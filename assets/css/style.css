@@ -59,6 +59,9 @@ body {
 }
 
 .btn {
+    display: flexbox;
+    flex-direction: column;
+    align-items: center;
     font-size: 26px;
     font-family: 'Courier New', Courier, monospace;
     border-radius: 7px;
@@ -79,13 +82,16 @@ body {
 }
 
 .btn-answer {
+    display: flexbox;
+    flex-direction: column;
+    align-items: center;
     width: 350px;
     text-align: left;
 }
 
 .divider {
     visibility: hidden;
-    border: 2px solid rgba(128, 128, 128, 0.5);
+    border: 2px solid var(--steelBlue);
     width: 800px;
     margin: 0 auto;
 }
@@ -107,3 +113,9 @@ body {
     list-style-type: decimal;
 }
 
+.initialText {
+    margin: 10px;
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--englishViolet);
+}
